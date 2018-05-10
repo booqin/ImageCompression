@@ -3,15 +3,17 @@
 
 
 import tinify
+import json
 import os
 
-source_path = "C:\\Users\\zhangfeng\\Desktop\\语音"
-target_path = 'C:\\Users\\zhangfeng\\Desktop\\new'
-tinify.key = "JiATnFuBlJKsxVEQqje21N9M2wZtZLMT"
+source_path_tag = "default_source_path"
+target_path_tag = "default_target_path"
+tinify_key_tag = "default_key"
 
-def pngCompress(*path):
+
+def png_compress(*path):
     """传入可变参数"""
-    #1.遍历文件夹下所有图片
+    # 1.遍历文件夹下所有图片
     s_paths = path[0]
     t_paths = path[1]
     i = 0
@@ -21,10 +23,11 @@ def pngCompress(*path):
         # print("n:", t_names[i])
         source = tinify.from_file(s_path)
         source.to_file(t_paths[i])
-        i+=1
-        print("一个:"+str(len(s_path))+"; 完成:"+str(i))
+        i += 1
+        print("一共:"+str(len(s_paths))+"; 完成:"+str(i))
 
-def getDirs(s_dir, t_dir):
+
+def get_dirs(s_dir, t_dir):
     """
     传入的s_dir为原路径，t_dir为目标路径
     """
@@ -33,13 +36,21 @@ def getDirs(s_dir, t_dir):
     for dirpath, dirname, filename in os.walk(s_dir):
         for _file in filename:
             suffix = os.path.splitext(_file)[1][1:]
-            if(suffix=="png"):
+            if suffix == "png":
                 s_path = os.path.join(dirpath, _file)
                 t_path = os.path.join(t_dir, _file)
                 source_paths.append(s_path)
                 target_paths.append(t_path)
-    return (source_paths, target_paths)
+    return source_paths, target_paths
+
+
+def load_config():
+    with open('./config.json', 'r') as config:
+        return json.load(config)
 
 if __name__ == '__main__':
-    pngCompress(*getDirs(source_path, target_path))
+    result = load_config()
+    print(result['default_key'])
+    tinify.key = result[tinify_key_tag]
+    png_compress(*get_dirs(result[source_path_tag], result[target_path_tag]))
 
