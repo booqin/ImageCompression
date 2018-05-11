@@ -1,5 +1,5 @@
 ## PNGCompress
-该工具通过TinyPNG提供的接口，实现批量图片压缩，可用于app端的资源图片的二次压缩。
+该工具通过TinyPNG提供的接口，实现批量图片压缩，可用于app端的资源图片的二次压缩，__使用前请到[tinypng官网](https://tinypng.com/)注册获取key__。
 
 ## 依赖
 
