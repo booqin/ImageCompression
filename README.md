@@ -8,7 +8,7 @@
 工具类依赖了tinify包
 
 ```
-pip install --upgrade tinify
+pip3 install --upgrade tinify
 ```
 
 ## 用法
