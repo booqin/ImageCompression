@@ -93,7 +93,7 @@ def get_parm():
     _result = load_config()
     source_path = sys.argv[1] if len(sys.argv) > 1 else _result[source_path_tag]
     target_path = sys.argv[2] if len(sys.argv) > 2 else _result[target_path_tag]
-    if target_path:
+    if not target_path:
         target_path = os.path.join(os.getcwd(), DEFAULT_OUT)
     tinify_key = _result[tinify_key_tag]
 
